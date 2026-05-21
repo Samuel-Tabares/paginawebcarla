@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Vida, Mi Ritmo - Carla</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --rosa-nude: #E8B7BE;
+            --rosa-pastel: #F6DDE1;
+            --beige-crema: #F8F3EF;
+            --cafe-suave: #A67C73;
+            --blanco-calido: #FFFDFC;
+            --gris-rosado: #6E5D5D;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--beige-crema);
+            color: var(--gris-rosado);
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Textura de papel */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.03) 2px,
+                    rgba(255, 255, 255, 0.03) 4px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.02) 2px,
+                    rgba(255, 255, 255, 0.02) 4px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            padding: 60px 40px 40px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(232, 183, 190, 0.08) 0%, rgba(246, 221, 225, 0.08) 100%);
+            border-bottom: 1px solid rgba(166, 124, 115, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--cafe-suave);
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--rosa-nude);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 80px 40px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            font-weight: 700;
+            color: var(--cafe-suave);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .hero .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            color: var(--rosa-nude);
+            font-weight: 400;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .hero .description {
+            font-size: 16px;
+            color: var(--gris-rosado);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 80px 40px;
+            border-bottom: 1px solid rgba(166, 124, 115, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        section:nth-child(1) { animation-delay: 0.2s; }
+        section:nth-child(2) { animation-delay: 0.3s; }
+        section:nth-child(3) { animation-delay: 0.4s; }
+        section:nth-child(4) { animation-delay: 0.5s; }
+        section:nth-child(5) { animation-delay: 0.6s; }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: var(--cafe-suave);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            color: var(--rosa-nude);
+            margin-bottom: 30px;
+        }
+
+        .content-block {
+            max-width: 700px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(255, 253, 252, 0.8) 0%, rgba(246, 221, 225, 0.05) 100%);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(166, 124, 115, 0.08);
+            border: 1px solid rgba(232, 183, 190, 0.3);
+        }
+
+        .content-block p {
+            margin-bottom: 25px;
+            font-size: 16px;
+            line-height: 1.9;
+            color: var(--gris-rosado);
+        }
+
+        .content-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-intro {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: var(--rosa-nude);
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        /* ===== CATEGORIES ===== */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: linear-gradient(135deg, rgba(232, 183, 190, 0.1) 0%, rgba(246, 221, 225, 0.15) 100%);
+            padding: 40px;
+            border-radius: 18px;
+            border: 1px solid rgba(232, 183, 190, 0.3);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            box-shadow: 0 8px 30px rgba(166, 124, 115, 0.06);
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(166, 124, 115, 0.12);
+            border-color: var(--rosa-nude);
+        }
+
+        .category-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            color: var(--cafe-suave);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .category-card p {
+            font-size: 14px;
+            color: var(--gris-rosado);
+            line-height: 1.7;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--rosa-nude);
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        /* ===== REFLECTION ===== */
+        .reflection-box {
+            background: linear-gradient(135deg, rgba(232, 183, 190, 0.15) 0%, rgba(246, 221, 225, 0.2) 100%);
+            padding: 60px;
+            border-radius: 20px;
+            border: 2px solid rgba(232, 183, 190, 0.4);
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: 0 12px 50px rgba(166, 124, 115, 0.1);
+        }
+
+        .reflection-box p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            color: var(--cafe-suave);
+            line-height: 2;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .reflection-box .closing {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(166, 124, 115, 0.2);
+        }
+
+        .closing-line {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            color: var(--rosa-nude);
+            margin: 12px 0;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(232, 183, 190, 0.06) 0%, rgba(246, 221, 225, 0.06) 100%);
+            border-top: 1px solid rgba(166, 124, 115, 0.1);
+            font-size: 14px;
+            color: var(--cafe-suave);
+            font-weight: 300;
+        }
+
+        .footer-date {
+            display: block;
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--rosa-nude);
+            letter-spacing: 1px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 25px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .hero .subtitle {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            section {
+                padding: 50px 25px;
+            }
+
+            .content-block {
+                padding: 35px;
+            }
+
+            nav {
+                gap: 25px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            .categories {
+                grid-template-columns: 1fr;
+            }
+
+            .reflection-box {
+                padding: 40px;
+            }
+
+            .reflection-box p {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero .subtitle {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            section {
+                padding: 40px 15px;
+            }
+
+            header {
+                padding: 40px 15px 25px;
+            }
+
+            .content-block {
+                padding: 25px;
+            }
+
+            nav {
+                gap: 15px;
+                font-size: 11px;
+            }
+
+            .reflection-box {
+                padding: 25px;
+            }
+
+            .reflection-box p {
+                font-size: 16px;
+            }
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* ===== DECORATIVE ELEMENTS ===== */
+        .accent-line {
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--rosa-nude), transparent);
+            margin: 0 auto 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#sobre">Sobre mí</a>
+            <a href="#mision">Misión</a>
+            <a href="#proyecto">Proyecto</a>
+            <a href="#contenido">Contenido</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>MI VIDA, MI RITMO</h1>
+        <p class="subtitle">"Cada pequeño hábito cuenta una historia."</p>
+        <div class="accent-line"></div>
+        <p class="description">Una experiencia digital inspirada en 75 días de disciplina, emociones y autenticidad.</p>
+    </section>
+
+    <section id="sobre">
+        <div class="container">
+            <h2 class="section-title">¿Quién soy?</h2>
+            <div class="content-block">
+                <p class="about-intro">Holi, soy Carla</p>
+                <p>Soy una persona que encuentra inspiración en los pequeños momentos: una taza de café, escribir mis pensamientos, escuchar música o simplemente detenerme un momento en medio del caos.</p>
+                <p>Este proyecto nace de la idea de que nuestra rutina también cuenta historias y que los hábitos cotidianos pueden convertirse en una forma de expresión auténtica.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="mision">
+        <div class="container">
+            <h2 class="section-title">¿Qué quiero transmitir?</h2>
+            <div class="content-block">
+                <p>Quiero mostrar que no existe una vida perfecta, pero sí una vida auténtica.</p>
+                <p><em>'Mi vida, mi ritmo' busca conectar con personas reales, con emociones reales y con esos pequeños hábitos que muchas veces pasan desapercibidos, pero que construyen quiénes somos.</em></p>
+                <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(166, 124, 115, 0.2);">
+                    <p style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--rosa-nude); font-style: italic;">"Cada pequeño hábito cuenta una historia."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proyecto">
+        <div class="container">
+            <h2 class="section-title">Detrás del proyecto</h2>
+            <p class="section-subtitle">75 días, muchas versiones de mí</p>
+            <div class="content-block">
+                <p><strong>'Mi vida, mi ritmo'</strong> nace a partir de mi experiencia viviendo un reto de 75 días enfocado en hábitos, disciplina y crecimiento personal.</p>
+                <p>A través de esta experiencia entendí que cambiar tu vida no siempre ocurre en momentos gigantes, sino en <strong>pequeñas decisiones repetidas todos los días</strong>.</p>
+                <p>Este reto se convirtió en una forma de documentar emociones, rutinas y aprendizajes reales. Más allá de cumplir hábitos, aprendí a escucharme, organizarme y encontrar valor en lo cotidiano.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contenido">
+        <div class="container">
+            <h2 class="section-title">Lo que encontrarás aquí</h2>
+            <div class="categories">
+                <div class="category-card">
+                    <div class="dot"></div>
+                    <h3>Rutinas reales</h3>
+                    <p>Momentos cotidianos y hábitos diarios que construyen una mejor versión de mí.</p>
+                </div>
+                <div class="category-card">
+                    <div class="dot"></div>
+                    <h3>Lifestyle</h3>
+                    <p>Café, journaling, bienestar y organización en mi día a día.</p>
+                </div>
+                <div class="category-card">
+                    <div class="dot"></div>
+                    <h3>Reflexiones</h3>
+                    <p>Aprendizajes emocionales y pensamientos profundos durante el reto.</p>
+                </div>
+                <div class="category-card">
+                    <div class="dot"></div>
+                    <h3>Diario personal</h3>
+                    <p>Pensamientos y procesos reales, sin filtros.</p>
+                </div>
+                <div class="category-card">
+                    <div class="dot"></div>
+                    <h3>Motivación auténtica</h3>
+                    <p>Sin perfección, solo progreso real y honesto.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="reflection-box">
+                <p>A veces creemos que cambiar nuestra vida requiere grandes pasos, pero este proyecto me enseñó que incluso las acciones más pequeñas pueden construir algo enorme con el tiempo.</p>
+                <div class="closing">
+                    <p class="closing-line">Un hábito,</p>
+                    <p class="closing-line">un día,</p>
+                    <p class="closing-line">una decisión a la vez.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Mi Vida, Mi Ritmo</p>
+        <span class="footer-date">Inspirado en 75 días de crecimiento personal</span>
+    </footer>
+</body>
+</html>
