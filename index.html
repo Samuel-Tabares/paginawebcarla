@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Vida, Mi Ritmo - Carla</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -236,9 +238,10 @@
         }
 
         .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 50px rgba(166, 124, 115, 0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(166, 124, 115, 0.1);
             border-color: var(--rosa-nude);
+            transition: all 0.25s ease-out;
         }
 
         .category-card h3 {
@@ -418,9 +421,379 @@
             background: linear-gradient(90deg, var(--rosa-nude), transparent);
             margin: 0 auto 30px;
         }
+
+        /* Floating decorative elements */
+        .floating-dots-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .floating-dot {
+            position: absolute;
+            background-color: var(--rosa-nude);
+            border-radius: 50%;
+            opacity: 0.35;
+            box-shadow: 0 0 15px rgba(232, 183, 190, 0.3);
+        }
+
+        .floating-dot.small {
+            width: 6px;
+            height: 6px;
+        }
+
+        .floating-dot.medium {
+            width: 8px;
+            height: 8px;
+            opacity: 0.32;
+        }
+
+        .floating-dot.large {
+            width: 10px;
+            height: 10px;
+            opacity: 0.3;
+        }
+
+        /* Section specific floating dots */
+        .section-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .section-dot {
+            position: absolute;
+            background-color: var(--rosa-nude);
+            border-radius: 50%;
+            opacity: 0.2;
+            box-shadow: 0 0 10px rgba(232, 183, 190, 0.15);
+        }
+
+        .section-dot.tiny {
+            width: 4px;
+            height: 4px;
+        }
+
+        .section-dot.small {
+            width: 6px;
+            height: 6px;
+            opacity: 0.18;
+        }
+
+        .section-dot.medium {
+            width: 8px;
+            height: 8px;
+            opacity: 0.15;
+        }
+
+        /* Scroll animations */
+        .scroll-fade {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .scroll-slide-left {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .scroll-slide-right {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        .scroll-scale {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .category-card {
+            will-change: transform;
+        }
+
+        /* Counter animation */
+        .counter-number {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 48px;
+            color: var(--rosa-nude);
+            margin-bottom: 10px;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 40px;
+            max-width: 600px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, rgba(232, 183, 190, 0.1) 0%, rgba(246, 221, 225, 0.15) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(232, 183, 190, 0.3);
+        }
+
+        .stat-item p {
+            font-size: 14px;
+            color: var(--gris-rosado);
+            margin-top: 10px;
+        }
+
+        /* Text reveal animation */
+        .text-reveal {
+            position: relative;
+            display: inline-block;
+        }
+
+        .text-reveal-char {
+            display: inline-block;
+            opacity: 0;
+        }
+
+        /* Parallax container */
+        .parallax-bg {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        /* Parallax background elements */
+        .parallax-element {
+            position: absolute;
+            opacity: 0.45;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .parallax-circle-1 {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--rosa-nude), transparent);
+            border-radius: 50%;
+            top: -30px;
+            right: -50px;
+        }
+
+        .parallax-circle-2 {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, var(--rosa-pastel), transparent);
+            border-radius: 50%;
+            bottom: -40px;
+            left: -50px;
+        }
+
+        .parallax-circle-3 {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--cafe-suave), transparent);
+            border-radius: 50%;
+            top: 50%;
+            left: 10%;
+        }
+
+        .parallax-circle-4 {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, var(--rosa-nude), transparent);
+            border-radius: 50%;
+            top: 20%;
+            right: 15%;
+        }
+
+        .parallax-circle-5 {
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle, var(--rosa-pastel), transparent);
+            border-radius: 50%;
+            bottom: 30%;
+            right: 10%;
+        }
+
+        .parallax-line-1 {
+            width: 2px;
+            height: 400px;
+            background: linear-gradient(to bottom, var(--rosa-nude), transparent);
+            top: 0;
+            right: 20%;
+        }
+
+        .parallax-line-2 {
+            width: 2px;
+            height: 350px;
+            background: linear-gradient(to bottom, var(--rosa-pastel), transparent);
+            top: 100px;
+            left: 15%;
+        }
+
+        .parallax-line-3 {
+            width: 2px;
+            height: 300px;
+            background: linear-gradient(to bottom, var(--rosa-nude), transparent);
+            top: 50%;
+            right: 30%;
+        }
+
+        .parallax-line-4 {
+            width: 2px;
+            height: 250px;
+            background: linear-gradient(to bottom, var(--rosa-pastel), transparent);
+            bottom: 10%;
+            left: 40%;
+        }
+
+        .parallax-circle-6 {
+            width: 130px;
+            height: 130px;
+            background: radial-gradient(circle, var(--rosa-pastel), transparent);
+            border-radius: 50%;
+            top: 30%;
+            right: 5%;
+        }
+
+        .parallax-circle-7 {
+            width: 110px;
+            height: 110px;
+            background: radial-gradient(circle, var(--rosa-nude), transparent);
+            border-radius: 50%;
+            bottom: 20%;
+            left: 20%;
+        }
+
+        .parallax-line-5 {
+            width: 2px;
+            height: 380px;
+            background: linear-gradient(to bottom, var(--cafe-suave), transparent);
+            top: 10%;
+            left: 60%;
+        }
+
+        .parallax-line-6 {
+            width: 2px;
+            height: 320px;
+            background: linear-gradient(to bottom, var(--rosa-pastel), transparent);
+            top: 40%;
+            right: 40%;
+        }
+
+        /* Global Parallax Layer */
+        .parallax-layer {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            pointer-events: none;
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .parallax-layer .parallax-element {
+            position: fixed;
+            will-change: transform;
+        }
+
+        .parallax-line-7 {
+            width: 2px;
+            height: 420px;
+            background: linear-gradient(to bottom, var(--rosa-nude), transparent);
+            top: 15%;
+            right: 25%;
+        }
+
+        .parallax-line-8 {
+            width: 2px;
+            height: 380px;
+            background: linear-gradient(to bottom, var(--rosa-pastel), transparent);
+            top: 25%;
+            left: 30%;
+        }
+
+        .parallax-line-9 {
+            width: 2px;
+            height: 350px;
+            background: linear-gradient(to bottom, var(--cafe-suave), transparent);
+            top: 35%;
+            right: 60%;
+        }
+
+        .parallax-line-10 {
+            width: 2px;
+            height: 400px;
+            background: linear-gradient(to bottom, var(--rosa-pastel), transparent);
+            bottom: 15%;
+            right: 35%;
+        }
+
+        .parallax-line-11 {
+            width: 2px;
+            height: 360px;
+            background: linear-gradient(to bottom, var(--rosa-nude), transparent);
+            bottom: 25%;
+            left: 50%;
+        }
+
+        .parallax-line-12 {
+            width: 2px;
+            height: 390px;
+            background: linear-gradient(to bottom, var(--cafe-suave), transparent);
+            top: 50%;
+            left: 70%;
+        }
+
+        .parallax-line-13 {
+            width: 2px;
+            height: 370px;
+            background: linear-gradient(to bottom, var(--rosa-pastel), transparent);
+            bottom: 35%;
+            right: 15%;
+        }
+
+        .parallax-line-14 {
+            width: 2px;
+            height: 410px;
+            background: linear-gradient(to bottom, var(--rosa-nude), transparent);
+            top: 5%;
+            left: 25%;
+        }
+
+        .parallax-line-15 {
+            width: 2px;
+            height: 340px;
+            background: linear-gradient(to bottom, var(--rosa-pastel), transparent);
+            bottom: 5%;
+            right: 50%;
+        }
+
+        /* Stagger delays */
+        .stagger-1 { --stagger-delay: 0.1s; }
+        .stagger-2 { --stagger-delay: 0.2s; }
+        .stagger-3 { --stagger-delay: 0.3s; }
+        .stagger-4 { --stagger-delay: 0.4s; }
+        .stagger-5 { --stagger-delay: 0.5s; }
     </style>
 </head>
 <body>
+    <!-- Floating decorative elements -->
+    <div class="floating-dots-container" id="floatingDotsContainer"></div>
+
+    <!-- Global Parallax Elements Layer -->
+    <div class="parallax-layer" id="parallaxLayer"></div>
+
     <header>
         <nav>
             <a href="#sobre">Sobre mí</a>
@@ -437,9 +810,9 @@
         <p class="description">Una experiencia digital inspirada en 75 días de disciplina, emociones y autenticidad.</p>
     </section>
 
-    <section id="sobre">
+    <section id="sobre" class="parallax-bg">
         <div class="container">
-            <h2 class="section-title">¿Quién soy?</h2>
+            <h2 class="section-title scroll-fade">¿Quién soy?</h2>
             <div class="content-block">
                 <p class="about-intro">Holi, soy Carla</p>
                 <p>Soy una persona que encuentra inspiración en los pequeños momentos: una taza de café, escribir mis pensamientos, escuchar música o simplemente detenerme un momento en medio del caos.</p>
@@ -448,9 +821,9 @@
         </div>
     </section>
 
-    <section id="mision">
+    <section id="mision" class="parallax-bg">
         <div class="container">
-            <h2 class="section-title">¿Qué quiero transmitir?</h2>
+            <h2 class="section-title scroll-slide-left">¿Qué quiero transmitir?</h2>
             <div class="content-block">
                 <p>Quiero mostrar que no existe una vida perfecta, pero sí una vida auténtica.</p>
                 <p><em>'Mi vida, mi ritmo' busca conectar con personas reales, con emociones reales y con esos pequeños hábitos que muchas veces pasan desapercibidos, pero que construyen quiénes somos.</em></p>
@@ -461,9 +834,9 @@
         </div>
     </section>
 
-    <section id="proyecto">
+    <section id="proyecto" class="parallax-bg">
         <div class="container">
-            <h2 class="section-title">Detrás del proyecto</h2>
+            <h2 class="section-title scroll-slide-right">Detrás del proyecto</h2>
             <p class="section-subtitle">75 días, muchas versiones de mí</p>
             <div class="content-block">
                 <p><strong>'Mi vida, mi ritmo'</strong> nace a partir de mi experiencia viviendo un reto de 75 días enfocado en hábitos, disciplina y crecimiento personal.</p>
@@ -473,34 +846,54 @@
         </div>
     </section>
 
-    <section id="contenido">
+    <section id="contenido" class="parallax-bg">
         <div class="container">
-            <h2 class="section-title">Lo que encontrarás aquí</h2>
+            <h2 class="section-title scroll-scale">Lo que encontrarás aquí</h2>
             <div class="categories">
-                <div class="category-card">
+                <div class="category-card stagger-1">
                     <div class="dot"></div>
                     <h3>Rutinas reales</h3>
                     <p>Momentos cotidianos y hábitos diarios que construyen una mejor versión de mí.</p>
                 </div>
-                <div class="category-card">
+                <div class="category-card stagger-2">
                     <div class="dot"></div>
                     <h3>Lifestyle</h3>
                     <p>Café, journaling, bienestar y organización en mi día a día.</p>
                 </div>
-                <div class="category-card">
+                <div class="category-card stagger-3">
                     <div class="dot"></div>
                     <h3>Reflexiones</h3>
                     <p>Aprendizajes emocionales y pensamientos profundos durante el reto.</p>
                 </div>
-                <div class="category-card">
+                <div class="category-card stagger-4">
                     <div class="dot"></div>
                     <h3>Diario personal</h3>
                     <p>Pensamientos y procesos reales, sin filtros.</p>
                 </div>
-                <div class="category-card">
+                <div class="category-card stagger-5">
                     <div class="dot"></div>
                     <h3>Motivación auténtica</h3>
                     <p>Sin perfección, solo progreso real y honesto.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="parallax-bg">
+        <div class="container">
+            <h2 class="section-title scroll-fade">75 Días de Transformación</h2>
+            <div class="stats-section">
+                <div class="stat-item">
+                    <div class="counter-number" data-target="75">0</div>
+                    <p>Días de reto</p>
+                </div>
+                <div class="stat-item">
+                    <div class="counter-number" data-target="365">0</div>
+                    <p>Horas comprometidas</p>
+                </div>
+                <div class="stat-item">
+                    <div class="counter-number" data-target="100">0</div>
+                    <p>% Progreso real</p>
                 </div>
             </div>
         </div>
@@ -523,5 +916,365 @@
         <p>Mi Vida, Mi Ritmo</p>
         <span class="footer-date">Inspirado en 75 días de crecimiento personal</span>
     </footer>
+
+    <script>
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // ===== 1. FLOATING DECORATIVE ELEMENTS (OPTIMIZED) =====
+        // Creates random floating dots that move smoothly
+        function createFloatingDots() {
+            const container = document.getElementById('floatingDotsContainer');
+            const dotCount = 200; // Optimized from 800
+            const sizes = ['small', 'medium', 'large'];
+
+            for (let i = 0; i < dotCount; i++) {
+                const dot = document.createElement('div');
+                const size = sizes[Math.floor(Math.random() * sizes.length)];
+                dot.className = `floating-dot ${size}`;
+                dot.style.willChange = 'transform';
+
+                // Random initial position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                dot.style.left = x + '%';
+                dot.style.top = y + '%';
+
+                container.appendChild(dot);
+
+                // Optimized animation using transform
+                gsap.to(dot, {
+                    x: (Math.random() - 0.5) * 150,
+                    y: (Math.random() - 0.5) * 150,
+                    duration: Math.random() * 3 + 5,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'sine.inOut',
+                    delay: Math.random() * 2,
+                    force3D: true, // GPU acceleration
+                });
+            }
+        }
+        createFloatingDots();
+
+        // ===== 1B. SECTION-SPECIFIC FLOATING DOTS (OPTIMIZED) =====
+        // Creates small dots within each section
+        function createSectionDots() {
+            const sections = document.querySelectorAll('section');
+            const sizes = ['tiny', 'small', 'medium'];
+
+            sections.forEach((section, index) => {
+                // Skip every other section to optimize
+                if (index % 2 !== 0) return;
+
+                // Create container for section dots
+                const dotsContainer = document.createElement('div');
+                dotsContainer.className = 'section-dots';
+                dotsContainer.style.willChange = 'transform';
+                section.insertBefore(dotsContainer, section.firstChild);
+
+                // Reduced to 12 dots per section
+                const dotsPerSection = 12;
+                for (let i = 0; i < dotsPerSection; i++) {
+                    const dot = document.createElement('div');
+                    const size = sizes[Math.floor(Math.random() * sizes.length)];
+                    dot.className = `section-dot ${size}`;
+                    dot.style.willChange = 'transform';
+
+                    // Random position within section
+                    const x = Math.random() * 100;
+                    const y = Math.random() * 100;
+                    dot.style.left = x + '%';
+                    dot.style.top = y + '%';
+
+                    dotsContainer.appendChild(dot);
+
+                    // Optimized animation
+                    gsap.to(dot, {
+                        x: (Math.random() - 0.5) * 80,
+                        y: (Math.random() - 0.5) * 80,
+                        duration: Math.random() * 10 + 18,
+                        repeat: -1,
+                        yoyo: true,
+                        ease: 'sine.inOut',
+                        delay: Math.random() * 4,
+                        force3D: true,
+                    });
+                }
+            });
+        }
+        createSectionDots();
+
+        // ===== 2. SCROLL ANIMATIONS (OPTIMIZED) =====
+        // Fade in elements - main animation only
+        gsap.utils.toArray('.scroll-fade').forEach((element) => {
+            element.style.willChange = 'opacity, transform';
+            gsap.fromTo(
+                element,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 80%',
+                        once: false,
+                        markers: false,
+                    },
+                    force3D: true,
+                }
+            );
+        });
+
+        // Reduced slide animations - only slides left/right
+        gsap.utils.toArray('.scroll-slide-left, .scroll-slide-right').forEach((element) => {
+            element.style.willChange = 'opacity, transform';
+            const isLeft = element.classList.contains('scroll-slide-left');
+            gsap.fromTo(
+                element,
+                { opacity: 0, x: isLeft ? -50 : 50 },
+                {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 80%',
+                        once: false,
+                        markers: false,
+                    },
+                    force3D: true,
+                }
+            );
+        });
+
+        // Scale animation - simplified
+        gsap.utils.toArray('.scroll-scale').forEach((element) => {
+            element.style.willChange = 'opacity, transform';
+            gsap.fromTo(
+                element,
+                { opacity: 0, scale: 0.95 },
+                {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 80%',
+                        once: false,
+                        markers: false,
+                    },
+                    force3D: true,
+                }
+            );
+        });
+
+        // ===== 3. STAGGERED CATEGORY CARDS (OPTIMIZED) =====
+        // Cards animate in sequence with delays
+        gsap.utils.toArray('.category-card').forEach((card, index) => {
+            card.style.willChange = 'opacity, transform';
+            gsap.fromTo(
+                card,
+                { opacity: 0, y: 40 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                    delay: index * 0.08,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        once: true, // Only animate once
+                        markers: false,
+                    },
+                    force3D: true,
+                }
+            );
+        });
+
+        // ===== 4. GLOBAL PARALLAX EFFECT LAYER =====
+        // Create all parallax elements in a global layer
+        function createGlobalParallaxLayer() {
+            const layer = document.getElementById('parallaxLayer');
+            const circles = [
+                { class: 'parallax-circle-1' },
+                { class: 'parallax-circle-2' },
+                { class: 'parallax-circle-3' },
+                { class: 'parallax-circle-4' },
+                { class: 'parallax-circle-5' },
+                { class: 'parallax-circle-6' },
+                { class: 'parallax-circle-7' },
+            ];
+
+            const lines = [
+                { class: 'parallax-line-1' },
+                { class: 'parallax-line-2' },
+                { class: 'parallax-line-3' },
+                { class: 'parallax-line-4' },
+                { class: 'parallax-line-5' },
+                { class: 'parallax-line-6' },
+                { class: 'parallax-line-7' },
+                { class: 'parallax-line-8' },
+                { class: 'parallax-line-9' },
+                { class: 'parallax-line-10' },
+                { class: 'parallax-line-11' },
+                { class: 'parallax-line-12' },
+                { class: 'parallax-line-13' },
+                { class: 'parallax-line-14' },
+                { class: 'parallax-line-15' },
+            ];
+
+            // Add circles
+            circles.forEach((circle) => {
+                const el = document.createElement('div');
+                el.className = `parallax-element ${circle.class}`;
+                layer.appendChild(el);
+            });
+
+            // Add lines
+            lines.forEach((line) => {
+                const el = document.createElement('div');
+                el.className = `parallax-element ${line.class}`;
+                layer.appendChild(el);
+            });
+
+            // Apply global parallax animation to the entire layer
+            gsap.to(layer, {
+                y: -500,
+                scrollTrigger: {
+                    trigger: 'body',
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 1,
+                    markers: false,
+                },
+                force3D: true,
+            });
+        }
+        createGlobalParallaxLayer();
+
+        // ===== 5. ANIMATED COUNTERS (OPTIMIZED) =====
+        // Numbers count up when they come into view - simplified
+        gsap.utils.toArray('.counter-number').forEach((counter) => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            let hasAnimated = false;
+
+            ScrollTrigger.create({
+                trigger: counter,
+                onEnter: () => {
+                    if (!hasAnimated) {
+                        hasAnimated = true;
+                        gsap.fromTo(
+                            counter,
+                            { textContent: 0 },
+                            {
+                                textContent: target,
+                                duration: 1.5,
+                                ease: 'power2.out',
+                                snap: { textContent: 1 },
+                                onUpdate: function () {
+                                    counter.textContent = Math.ceil(this.targets()[0].textContent);
+                                },
+                            }
+                        );
+                    }
+                },
+            });
+        });
+
+        // ===== 6. SIMPLIFIED HOVER EFFECTS (CSS-based for better performance) =====
+        // Using CSS transitions instead of GSAP for hover effects
+
+        // ===== 7. SMOOTH SCROLL - Using native CSS for better performance =====
+        // Removed GSAP smooth scroll - using native browser smooth scroll instead
+
+        // ===== 8. INITIAL PAGE LOAD ANIMATION (SIMPLIFIED) =====
+        // Hero section animates on page load - simplified
+        gsap.set('.hero h1, .hero .subtitle, .hero .description', { willChange: 'opacity, transform' });
+        gsap.timeline()
+            .fromTo(
+                '.hero h1',
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', force3D: true },
+                0
+            )
+            .fromTo(
+                '.hero .subtitle',
+                { opacity: 0, y: 15 },
+                { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', force3D: true },
+                0.15
+            )
+            .fromTo(
+                '.accent-line',
+                { opacity: 0, scaleX: 0 },
+                { opacity: 1, scaleX: 1, duration: 0.4, ease: 'power2.out' },
+                0.3
+            )
+            .fromTo(
+                '.hero .description',
+                { opacity: 0, y: 15 },
+                { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', force3D: true },
+                0.45
+            );
+
+        // ===== 9. CONTENT BLOCK ANIMATIONS (OPTIMIZED) =====
+        // Content blocks fade in when they come into view
+        gsap.utils.toArray('.content-block').forEach((block) => {
+            block.style.willChange = 'opacity, transform';
+            gsap.fromTo(
+                block,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: block,
+                        start: 'top 85%',
+                        once: true,
+                        markers: false,
+                    },
+                    force3D: true,
+                }
+            );
+        });
+
+        // ===== 10. REFLECTION BOX ANIMATION (SIMPLIFIED) =====
+        // Special animation for the closing reflection
+        gsap.fromTo(
+            '.reflection-box',
+            { opacity: 0, scale: 0.98 },
+            {
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.reflection-box',
+                    start: 'top 70%',
+                    once: true,
+                    markers: false,
+                },
+                force3D: true,
+            }
+        );
+
+        console.log('✨ GSAP animations loaded and OPTIMIZED!');
+        console.log('Performance improvements made:');
+        console.log('✅ Reduced floating dots: 800 → 200');
+        console.log('✅ Reduced section dots: 35/section → 12 (every other section)');
+        console.log('✅ GPU acceleration enabled (force3D: true)');
+        console.log('✅ will-change added to animated elements');
+        console.log('✅ Removed expensive GSAP hover effects - using CSS instead');
+        console.log('✅ Removed GSAP smooth scroll - using native browser');
+        console.log('✅ Set once: true on non-repeating animations');
+        console.log('✅ Parallax z-index fixed - now at z-index: 10');
+    </script>
 </body>
 </html>
